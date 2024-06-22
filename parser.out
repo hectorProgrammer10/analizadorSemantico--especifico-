@@ -1,0 +1,419 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DOT
+    LBRACE
+    LEQ
+    PLUS
+    RBRACE
+    RESERVADA
+    STRING
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> declaration_list statement_list
+Rule 2     declaration_list -> declaration_list declaration
+Rule 3     declaration_list -> declaration
+Rule 4     declaration_list -> empty
+Rule 5     declaration -> tipo ID EQ DIGITO SEMICOLON
+Rule 6     declaration -> tipo ID SEMICOLON
+Rule 7     statement_list -> statement_list statement
+Rule 8     statement_list -> statement
+Rule 9     statement_list -> empty
+Rule 10    statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+Rule 11    condition -> tipo ID EQ DIGITO
+Rule 12    condition -> tipo ID EQ EQ DIGITO
+Rule 13    tipo -> INT
+Rule 14    tipo -> CHAR
+Rule 15    tipo -> FLOAT
+Rule 16    empty -> <empty>
+
+Terminals, with rules where they appear
+
+CHAR                 : 14
+DIGITO               : 5 11 12
+DO                   : 10
+DOT                  : 
+ENDDO                : 10
+ENDWHILE             : 10
+EQ                   : 5 11 12 12
+FLOAT                : 15
+ID                   : 5 6 11 12
+INT                  : 13
+LBRACE               : 
+LEQ                  : 
+LPAREN               : 10
+PLUS                 : 
+RBRACE               : 
+RESERVADA            : 
+RPAREN               : 10
+SEMICOLON            : 5 6
+STRING               : 
+WHILE                : 10
+error                : 
+
+Nonterminals, with rules where they appear
+
+condition            : 10
+declaration          : 2 3
+declaration_list     : 1 2
+empty                : 4 9
+program              : 0
+statement            : 7 8
+statement_list       : 1 7 10
+tipo                 : 5 6 11 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . declaration_list statement_list
+    (2) declaration_list -> . declaration_list declaration
+    (3) declaration_list -> . declaration
+    (4) declaration_list -> . empty
+    (5) declaration -> . tipo ID EQ DIGITO SEMICOLON
+    (6) declaration -> . tipo ID SEMICOLON
+    (16) empty -> .
+    (13) tipo -> . INT
+    (14) tipo -> . CHAR
+    (15) tipo -> . FLOAT
+
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for CHAR resolved as shift
+  ! shift/reduce conflict for FLOAT resolved as shift
+    DO              reduce using rule 16 (empty -> .)
+    $end            reduce using rule 16 (empty -> .)
+    INT             shift and go to state 6
+    CHAR            shift and go to state 7
+    FLOAT           shift and go to state 8
+
+  ! INT             [ reduce using rule 16 (empty -> .) ]
+  ! CHAR            [ reduce using rule 16 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 16 (empty -> .) ]
+
+    program                        shift and go to state 1
+    declaration_list               shift and go to state 2
+    declaration                    shift and go to state 3
+    empty                          shift and go to state 4
+    tipo                           shift and go to state 5
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> declaration_list . statement_list
+    (2) declaration_list -> declaration_list . declaration
+    (7) statement_list -> . statement_list statement
+    (8) statement_list -> . statement
+    (9) statement_list -> . empty
+    (5) declaration -> . tipo ID EQ DIGITO SEMICOLON
+    (6) declaration -> . tipo ID SEMICOLON
+    (10) statement -> . DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+    (16) empty -> .
+    (13) tipo -> . INT
+    (14) tipo -> . CHAR
+    (15) tipo -> . FLOAT
+
+  ! shift/reduce conflict for DO resolved as shift
+    DO              shift and go to state 13
+    $end            reduce using rule 16 (empty -> .)
+    INT             shift and go to state 6
+    CHAR            shift and go to state 7
+    FLOAT           shift and go to state 8
+
+  ! DO              [ reduce using rule 16 (empty -> .) ]
+
+    statement_list                 shift and go to state 9
+    declaration                    shift and go to state 10
+    statement                      shift and go to state 11
+    empty                          shift and go to state 12
+    tipo                           shift and go to state 5
+
+state 3
+
+    (3) declaration_list -> declaration .
+
+    DO              reduce using rule 3 (declaration_list -> declaration .)
+    INT             reduce using rule 3 (declaration_list -> declaration .)
+    CHAR            reduce using rule 3 (declaration_list -> declaration .)
+    FLOAT           reduce using rule 3 (declaration_list -> declaration .)
+    $end            reduce using rule 3 (declaration_list -> declaration .)
+
+
+state 4
+
+    (4) declaration_list -> empty .
+
+    DO              reduce using rule 4 (declaration_list -> empty .)
+    INT             reduce using rule 4 (declaration_list -> empty .)
+    CHAR            reduce using rule 4 (declaration_list -> empty .)
+    FLOAT           reduce using rule 4 (declaration_list -> empty .)
+    $end            reduce using rule 4 (declaration_list -> empty .)
+
+
+state 5
+
+    (5) declaration -> tipo . ID EQ DIGITO SEMICOLON
+    (6) declaration -> tipo . ID SEMICOLON
+
+    ID              shift and go to state 14
+
+
+state 6
+
+    (13) tipo -> INT .
+
+    ID              reduce using rule 13 (tipo -> INT .)
+
+
+state 7
+
+    (14) tipo -> CHAR .
+
+    ID              reduce using rule 14 (tipo -> CHAR .)
+
+
+state 8
+
+    (15) tipo -> FLOAT .
+
+    ID              reduce using rule 15 (tipo -> FLOAT .)
+
+
+state 9
+
+    (1) program -> declaration_list statement_list .
+    (7) statement_list -> statement_list . statement
+    (10) statement -> . DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+
+    $end            reduce using rule 1 (program -> declaration_list statement_list .)
+    DO              shift and go to state 13
+
+    statement                      shift and go to state 15
+
+state 10
+
+    (2) declaration_list -> declaration_list declaration .
+
+    DO              reduce using rule 2 (declaration_list -> declaration_list declaration .)
+    INT             reduce using rule 2 (declaration_list -> declaration_list declaration .)
+    CHAR            reduce using rule 2 (declaration_list -> declaration_list declaration .)
+    FLOAT           reduce using rule 2 (declaration_list -> declaration_list declaration .)
+    $end            reduce using rule 2 (declaration_list -> declaration_list declaration .)
+
+
+state 11
+
+    (8) statement_list -> statement .
+
+    DO              reduce using rule 8 (statement_list -> statement .)
+    $end            reduce using rule 8 (statement_list -> statement .)
+    ENDDO           reduce using rule 8 (statement_list -> statement .)
+
+
+state 12
+
+    (9) statement_list -> empty .
+
+    DO              reduce using rule 9 (statement_list -> empty .)
+    $end            reduce using rule 9 (statement_list -> empty .)
+    ENDDO           reduce using rule 9 (statement_list -> empty .)
+
+
+state 13
+
+    (10) statement -> DO . statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+    (7) statement_list -> . statement_list statement
+    (8) statement_list -> . statement
+    (9) statement_list -> . empty
+    (10) statement -> . DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+    (16) empty -> .
+
+  ! shift/reduce conflict for DO resolved as shift
+    DO              shift and go to state 13
+    ENDDO           reduce using rule 16 (empty -> .)
+
+  ! DO              [ reduce using rule 16 (empty -> .) ]
+
+    statement_list                 shift and go to state 16
+    statement                      shift and go to state 11
+    empty                          shift and go to state 12
+
+state 14
+
+    (5) declaration -> tipo ID . EQ DIGITO SEMICOLON
+    (6) declaration -> tipo ID . SEMICOLON
+
+    EQ              shift and go to state 17
+    SEMICOLON       shift and go to state 18
+
+
+state 15
+
+    (7) statement_list -> statement_list statement .
+
+    DO              reduce using rule 7 (statement_list -> statement_list statement .)
+    $end            reduce using rule 7 (statement_list -> statement_list statement .)
+    ENDDO           reduce using rule 7 (statement_list -> statement_list statement .)
+
+
+state 16
+
+    (10) statement -> DO statement_list . ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+    (7) statement_list -> statement_list . statement
+    (10) statement -> . DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE
+
+    ENDDO           shift and go to state 19
+    DO              shift and go to state 13
+
+    statement                      shift and go to state 15
+
+state 17
+
+    (5) declaration -> tipo ID EQ . DIGITO SEMICOLON
+
+    DIGITO          shift and go to state 20
+
+
+state 18
+
+    (6) declaration -> tipo ID SEMICOLON .
+
+    DO              reduce using rule 6 (declaration -> tipo ID SEMICOLON .)
+    INT             reduce using rule 6 (declaration -> tipo ID SEMICOLON .)
+    CHAR            reduce using rule 6 (declaration -> tipo ID SEMICOLON .)
+    FLOAT           reduce using rule 6 (declaration -> tipo ID SEMICOLON .)
+    $end            reduce using rule 6 (declaration -> tipo ID SEMICOLON .)
+
+
+state 19
+
+    (10) statement -> DO statement_list ENDDO . WHILE LPAREN condition RPAREN ENDWHILE
+
+    WHILE           shift and go to state 21
+
+
+state 20
+
+    (5) declaration -> tipo ID EQ DIGITO . SEMICOLON
+
+    SEMICOLON       shift and go to state 22
+
+
+state 21
+
+    (10) statement -> DO statement_list ENDDO WHILE . LPAREN condition RPAREN ENDWHILE
+
+    LPAREN          shift and go to state 23
+
+
+state 22
+
+    (5) declaration -> tipo ID EQ DIGITO SEMICOLON .
+
+    DO              reduce using rule 5 (declaration -> tipo ID EQ DIGITO SEMICOLON .)
+    INT             reduce using rule 5 (declaration -> tipo ID EQ DIGITO SEMICOLON .)
+    CHAR            reduce using rule 5 (declaration -> tipo ID EQ DIGITO SEMICOLON .)
+    FLOAT           reduce using rule 5 (declaration -> tipo ID EQ DIGITO SEMICOLON .)
+    $end            reduce using rule 5 (declaration -> tipo ID EQ DIGITO SEMICOLON .)
+
+
+state 23
+
+    (10) statement -> DO statement_list ENDDO WHILE LPAREN . condition RPAREN ENDWHILE
+    (11) condition -> . tipo ID EQ DIGITO
+    (12) condition -> . tipo ID EQ EQ DIGITO
+    (13) tipo -> . INT
+    (14) tipo -> . CHAR
+    (15) tipo -> . FLOAT
+
+    INT             shift and go to state 6
+    CHAR            shift and go to state 7
+    FLOAT           shift and go to state 8
+
+    condition                      shift and go to state 24
+    tipo                           shift and go to state 25
+
+state 24
+
+    (10) statement -> DO statement_list ENDDO WHILE LPAREN condition . RPAREN ENDWHILE
+
+    RPAREN          shift and go to state 26
+
+
+state 25
+
+    (11) condition -> tipo . ID EQ DIGITO
+    (12) condition -> tipo . ID EQ EQ DIGITO
+
+    ID              shift and go to state 27
+
+
+state 26
+
+    (10) statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN . ENDWHILE
+
+    ENDWHILE        shift and go to state 28
+
+
+state 27
+
+    (11) condition -> tipo ID . EQ DIGITO
+    (12) condition -> tipo ID . EQ EQ DIGITO
+
+    EQ              shift and go to state 29
+
+
+state 28
+
+    (10) statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE .
+
+    DO              reduce using rule 10 (statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE .)
+    $end            reduce using rule 10 (statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE .)
+    ENDDO           reduce using rule 10 (statement -> DO statement_list ENDDO WHILE LPAREN condition RPAREN ENDWHILE .)
+
+
+state 29
+
+    (11) condition -> tipo ID EQ . DIGITO
+    (12) condition -> tipo ID EQ . EQ DIGITO
+
+    DIGITO          shift and go to state 31
+    EQ              shift and go to state 30
+
+
+state 30
+
+    (12) condition -> tipo ID EQ EQ . DIGITO
+
+    DIGITO          shift and go to state 32
+
+
+state 31
+
+    (11) condition -> tipo ID EQ DIGITO .
+
+    RPAREN          reduce using rule 11 (condition -> tipo ID EQ DIGITO .)
+
+
+state 32
+
+    (12) condition -> tipo ID EQ EQ DIGITO .
+
+    RPAREN          reduce using rule 12 (condition -> tipo ID EQ EQ DIGITO .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for INT in state 0 resolved as shift
+WARNING: shift/reduce conflict for CHAR in state 0 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 0 resolved as shift
+WARNING: shift/reduce conflict for DO in state 2 resolved as shift
+WARNING: shift/reduce conflict for DO in state 13 resolved as shift
